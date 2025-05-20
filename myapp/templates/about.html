@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    {% extends 'base.html' %}
+{% block title %}About Us - TravelMate{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-image: url('/static/images/bg2.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+        padding: 60px 20px;
+        min-height: 100vh;
+        color: white;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    .about-section {
+        max-width: 900px;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        animation: fadeInUp 1s ease;
+        color: #333;
+    }
+
+    .about-section p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    .highlight {
+        color: #ffc107;
+        font-weight: bold;
+    }
+
+    .btn-home {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: #ffc107;
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-home:hover {
+        background-color: #e0a800;
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="overlay">
+    <h1>About <span class="highlight">TravelMate</span></h1>
+    <div class="about-section">
+        <p>
+            <strong>TravelMate</strong> is your trusted travel partner, connecting curious travelers with verified tour vendors across the country. Our goal is to make trip planning simple, secure, and enjoyable — from discovering dream destinations to booking with confidence.
+        </p>
+        <p>
+            We offer <span class="highlight">admin-approved tour packages</span>, vendor-managed listings, and secure Razorpay payments to ensure that your travel experience starts off right.
+        </p>
+        <p>
+           Whether you're a traveler eager to explore, a vendor looking to share experiences, or an admin maintaining quality—
+        <strong>TravelMate is here to guide your way.</strong></p>
+        <a href="{% url 'index' %}" class="btn-home">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

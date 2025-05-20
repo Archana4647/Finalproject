@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ package.place }}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- AOS for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Swiper Slider CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        body {
+            background-image: url('/static/images/bg4.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans text-white">
+<div class="bg-black bg-opacity-60 min-h-screen px-6 py-8">
+    <div class="max-w-4xl mx-auto bg-gray-900 bg-opacity-80 rounded-lg shadow-lg p-6" data-aos="fade-up">
+        <h1 class="text-3xl font-bold mb-4 text-yellow-400">
+            <i class="fas fa-map-marker-alt mr-2"></i>{{ package.place }}
+        </h1>
+
+        <p class="text-gray-300 mb-4">{{ package.description }}</p>
+
+        <!-- Swiper Slider -->
+        <div class="swiper mySwiper mb-6">
+            <div class="swiper-wrapper">
+                {% for img in package.images.all %}
+                <div class="swiper-slide">
+                    <img src="{{ img.image.url }}" class="rounded-xl w-full h-64 object-cover" alt="Package Image">
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!-- Package Info with Icons -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-gray-200">
+            <p><i class="fas fa-clock text-yellow-400 mr-2"></i><strong>Duration:</strong> {{ package.duration }} days</p>
+            <p><i class="fas fa-calendar-alt text-yellow-400 mr-2"></i><strong>Start:</strong> {{ package.package_start_date }}</p>
+            <p><i class="fas fa-calendar-check text-yellow-400 mr-2"></i><strong>End:</strong> {{ package.package_end_date }}</p>
+            <p><i class="fas fa-car-side text-yellow-400 mr-2"></i><strong>Transportation:</strong> {{ package.transportation }}</p>
+            <p><i class="fas fa-hotel text-yellow-400 mr-2"></i><strong>Accommodation:</strong> {{ package.accommodation }}</p>
+            <p><i class="fas fa-utensils text-yellow-400 mr-2"></i><strong>Meals Included:</strong> {{ package.meals_included|yesno:"Yes,No" }}</p>
+            <p><i class="fas fa-map text-yellow-400 mr-2"></i><strong>Destinations:</strong> {{ package.destinations }}</p>
+            <p><i class="fas fa-phone text-yellow-400 mr-2"></i><strong>Contact:</strong> {{ package.phonenumber }}</p>
+            <p><i class="fas fa-hourglass-end text-yellow-400 mr-2"></i><strong>Booking Ends:</strong> {{ package.booking_end_date }}</p>
+            <p><i class="fas fa-rupee-sign text-yellow-400 mr-2"></i><strong>Cost:</strong> ₹{{ package.cost }}</p>
+        </div>
+
+        <!-- Book Now -->
+        <div class="mb-10">
+            <button id="open-modal-btn" class="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-2 rounded shadow">
+                <i class="fas fa-ticket-alt mr-2"></i>Book Now
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div id="user-details-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden flex justify-center items-center z-50">
+            <div class="bg-white text-black rounded-lg p-6 w-80">
+                <h3 class="text-lg font-bold mb-4">Enter Your Details</h3>
+                <input type="text" id="user_full_name" placeholder="Full Name" class="w-full border px-3 py-2 mb-3 rounded">
+                <input type="email" id="user_email" placeholder="Email" class="w-full border px-3 py-2 mb-3 rounded">
+                <input type="text" id="user_phone" placeholder="Phone" class="w-full border px-3 py-2 mb-4 rounded">
+                <button id="pay-now-btn" class="bg-blue-600 hover:bg-blue-700 text-white w-full py-2 rounded">
+                    Proceed to Pay
+                </button>
+            </div>
+        </div>
+
+        <!-- Razorpay Payment -->
+        <form id="payment-success-form" action="/payment/success/" method="POST" style="display:none;">
+            {% csrf_token %}
+            <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+            <input type="hidden" name="package_id" value="{{ package.id }}">
+            <input type="hidden" name="full_name" id="full_name">
+            <input type="hidden" name="email" id="email">
+            <input type="hidden" name="phone" id="phone">
+        </form>
+
+        <!-- Reviews Section -->
+        <div class="mt-12">
+            <h3 class="text-2xl text-yellow-400 mb-4"><i class="fas fa-comments mr-2"></i>Reviews</h3>
+
+            {% for review in package.reviews.all %}
+            <div class="bg-gray-800 rounded-lg p-4 mb-4 shadow-lg border border-gray-700" data-aos="fade-up">
+                <div class="flex justify-between items-center mb-2">
+                    <strong class="text-white">{{ review.user.username }}</strong>
+                    <span class="text-yellow-400">{{ review.rating }}/5 ★</span>
+                </div>
+                <small class="text-gray-400">{{ review.created_at }}</small>
+                <p class="text-gray-300 mt-2 italic">“{{ review.comment }}”</p>
+            </div>
+            {% empty %}
+            <p class="text-gray-400">No reviews yet.</p>
+            {% endfor %}
+
+            <!-- Review Form -->
+            <form method="POST" action="{% url 'submit_review' package.id %}" class="mt-6 bg-gray-800 p-4 rounded-lg border border-gray-700">
+                {% csrf_token %}
+                <label class="block mb-2">Rating (1-5):</label>
+                <input type="number" name="rating" min="1" max="5" required class="w-full px-3 py-2 rounded mb-4 bg-gray-700 text-white">
+                <label class="block mb-2">Comment:</label>
+                <textarea name="comment" required class="w-full px-3 py-2 rounded bg-gray-700 text-white mb-4"></textarea>
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Submit Review</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    AOS.init({ duration: 600, once: true });
+
+    const modal = document.getElementById('user-details-modal');
+    document.getElementById('open-modal-btn').onclick = () => modal.classList.remove('hidden');
+
+    document.getElementById('pay-now-btn').onclick = function (e) {
+        e.preventDefault();
+        const fullName = document.getElementById('user_full_name').value.trim();
+        const email = document.getElementById('user_email').value.trim();
+        const phone = document.getElementById('user_phone').value.trim();
+
+        if (!fullName || !email || !phone) {
+            alert("Please fill all details.");
+            return;
+        }
+
+        const options = {
+            key: "{{ razorpay_merchant_key }}",
+            amount: "{{ amount }}",
+            currency: "{{ currency }}",
+            name: "Tour Booking",
+            description: "{{ package.place }}",
+            order_id: "{{ razorpay_order_id }}",
+            handler: function (response) {
+                document.getElementById("razorpay_payment_id").value = response.razorpay_payment_id;
+                document.getElementById("full_name").value = fullName;
+                document.getElementById("email").value = email;
+                document.getElementById("phone").value = phone;
+                document.getElementById("payment-success-form").submit();
+            },
+            prefill: { name: fullName, email: email, contact: phone },
+            theme: { color: "#3399cc" }
+        };
+        new Razorpay(options).open();
+        modal.classList.add('hidden');
+    };
+
+    // Swiper init
+    const swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        spaceBetween: 20,
+        slidesPerView: 1,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</body>
+</html>

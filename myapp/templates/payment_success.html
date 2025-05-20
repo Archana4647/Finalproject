@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Successful</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            background-image: url('/static/images/bg4.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans text-white">
+    <!-- Overlay -->
+    <div class="bg-black bg-opacity-70 min-h-screen flex items-center justify-center px-4">
+        <div class="bg-gray-900 bg-opacity-90 p-8 rounded-xl shadow-lg text-center max-w-lg w-full">
+            <h1 class="text-3xl font-bold text-yellow-400 mb-4">Thank you for your booking! 🎉</h1>
+            <p class="text-lg text-gray-200 mb-6">
+                Your payment was successful.<br>
+                You will receive a confirmation email shortly.
+            </p>
+            <a href="{% url 'user_dashboard' %}" class="inline-block mt-4 bg-yellow-500 text-black px-6 py-2 rounded hover:bg-yellow-600 transition duration-300">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+</body>
+</html>

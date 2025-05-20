@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}TravelMate{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body class=>
+
+<!-- Navbar Section -->
+<nav class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="{% url 'index' %}" class="text-2xl font-bold text-yellow-600">TravelMate</a>
+    <div class="space-x-4 text-sm md:text-base">
+      <a href="{% url 'index' %}" class="hover:text-yellow-600">Home</a>
+      <a href="{% url 'about' %}" class="hover:text-yellow-600">About</a>
+      <a href="{% url 'contact' %}" class="hover:text-yellow-600">Contact</a>
+
+      {% if request.user.is_authenticated %}
+        {% if request.user.vendorprofile %}
+          <a href="{% url 'vendor_dashboard' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Vendor Dashboard</a>
+        {% elif request.user.userprofile.role == 'user' %}
+          <a href="{% url 'user_dashboard' %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">User Dashboard</a>
+        {% endif %}
+
+        <!-- Logout Form -->
+        <form method="post" action="{% url 'logout' %}" class="inline">
+          {% csrf_token %}
+          <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded">User Login</a>
+        <a href="{% url 'vendor_login' %}" class="bg-gray-200 hover:bg-gray-300 text-blue-700 px-4 py-2 rounded">Vendor Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+
+<!-- Page Content -->
+{% block content %}{% endblock %}
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white text-center py-6">
+  <p>&copy; 2025 TravelMate. All rights reserved.</p>
+</footer>
+
+<script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>
