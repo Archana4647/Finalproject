@@ -28,6 +28,23 @@
     </style>
 </head>
 <body class="min-h-screen font-sans text-white">
+
+<!-- Navbar Section -->
+<nav class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="{% url 'index' %}" class="text-xl font-bold text-yellow-600">TravelMate</a>
+    <div class="space-x-4">
+      <a href="{% url 'index' %}" class="text-gray-700 hover:text-yellow-600">Home</a>
+      <a href="{% url 'about' %}" class="text-gray-700 hover:text-yellow-600">About</a>
+      <a href="{% url 'contact' %}" class="text-gray-700 hover:text-yellow-600">Contact</a>
+      <form method="post" action="{% url 'logout' %}" class="inline">
+        {% csrf_token %}
+        <button type="submit" class="text-gray-700 hover:text-yellow-600">Logout</button>
+      </form>
+    </div>
+  </div>
+</nav><br><br>
+
 <div class="bg-black bg-opacity-60 min-h-screen px-6 py-8">
     <div class="max-w-4xl mx-auto bg-gray-900 bg-opacity-80 rounded-lg shadow-lg p-6" data-aos="fade-up">
         <h1 class="text-3xl font-bold mb-4 text-yellow-400">

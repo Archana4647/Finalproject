@@ -23,7 +23,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', LogoutView.as_view(next_page=reverse_lazy('login')), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(next_page=reverse_lazy('index')), name='logout'),
     path('dashboard/', views.user_dashboard, name='user_dashboard'),  # simple placeholder
     path('book/<int:package_id>/', views.book_package, name='book_package'),
     path('vendor/register/', views.vendor_register, name='vendor_register'),
@@ -41,8 +41,10 @@ urlpatterns = [
     path('package/<int:pk>/', views.package_detail, name='package_detail'),
     path('package/<int:package_id>/review/', views.submit_review, name='submit_review'),
     path('custom-redirect/', views.custom_redirect, name='custom_redirect'),
-     path('user/logout/', views.user_logout, name='user_logout'),
+     path('user/logout/', auth_views.LogoutView.as_view(), name='user_logout'),
     path('vendor/logout/', views.vendor_logout, name='vendor_logout'),
+    path('test-auth/', views.test_auth, name='test_auth'),
+
 ]
 
 

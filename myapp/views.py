@@ -361,13 +361,17 @@ def custom_redirect(request):
         return redirect('index')
 
 
-#user logout view
-def user_logout(request):
-    logout(request)
-    return redirect('user_logout.html') 
 
 
 # Vendor logout view
 def vendor_logout(request):
     logout(request)
     return redirect('vendor_logout.html') 
+
+from django.http import HttpResponse
+
+def test_auth(request):
+    if request.user.is_authenticated:
+        return HttpResponse(f"Logged in as: {request.user.username}")
+    else:
+        return HttpResponse("Not logged in")

@@ -142,7 +142,7 @@ RAZORPAY_KEY_SECRET = 'KfKgbxY3LBXFTdoUA66OwXaS'
 
 
 LOGIN_REDIRECT_URL = '/custom-redirect/'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
 
 
