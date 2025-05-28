@@ -1,11 +1,4 @@
-# from django.urls import path
-# from .import views as v
 
-# urlpatterns=[
-#     path('',v.home,name='home'),
-#     path('register/',v.register,name='register'),
-#     path('login/',v.loginn,name='loginn'),
-# ]
 
 
 from django.urls import path, include
@@ -41,7 +34,7 @@ urlpatterns = [
     path('package/<int:pk>/', views.package_detail, name='package_detail'),
     path('package/<int:package_id>/review/', views.submit_review, name='submit_review'),
     path('custom-redirect/', views.custom_redirect, name='custom_redirect'),
-     path('user/logout/', auth_views.LogoutView.as_view(), name='user_logout'),
+    path('user/logout/', auth_views.LogoutView.as_view(), name='user_logout'),
     path('vendor/logout/', views.vendor_logout, name='vendor_logout'),
     path('test-auth/', views.test_auth, name='test_auth'),
 

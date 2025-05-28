@@ -33,10 +33,58 @@
 
 <!-- Footer -->
 {% block footer %}
-<footer class="bg-gray-800 text-white text-center py-6">
-  <p>&copy; 2025 TravelMate. All rights reserved.</p>
+<footer class="bg-gray-900 text-gray-300 pt-12 pb-6">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+    
+    <!-- Company Info -->
+    <div>
+      <h3 class="text-xl font-semibold text-yellow-500 mb-3">TravelMate</h3>
+      <p>TravelMate is your ultimate travel companion, helping you discover and book unforgettable journeys around the world with ease and trust.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h4 class="text-lg font-semibold text-yellow-500 mb-3">Quick Links</h4>
+      <ul class="space-y-2">
+        <li><a href="{% url 'index' %}" class="hover:text-white">Home</a></li>
+        <li><a href="{% url 'about' %}" class="hover:text-white">About</a></li>
+        <li><a href="{% url 'contact' %}" class="hover:text-white">Contact</a></li>
+        <li><a href="{% url 'register' %}" class="hover:text-white">Register</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact & Social -->
+    <div>
+      <h4 class="text-lg font-semibold text-yellow-500 mb-3">Contact</h4>
+      <p>Email: support@travelmate.com</p>
+      <p>Phone: +1 (555) 123-4567</p>
+      <div class="mt-4 flex space-x-4">
+        <a href="#" class="hover:text-white" title="Facebook">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5 3.66 9.12 8.44 9.88v-6.99H8.08v-2.89h2.36V9.84c0-2.33 1.39-3.62 3.52-3.62.72 0 1.48.13 1.48.13v1.63h-.84c-.83 0-1.09.52-1.09 1.05v1.26h2.14l-.34 2.89h-1.8v6.99C18.34 21.12 22 17 22 12z"/>
+          </svg>
+        </a>
+        <a href="#" class="hover:text-white" title="Twitter">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43.36a9.01 9.01 0 0 1-2.84 1.1A4.48 4.48 0 0 0 16.45 0c-2.5 0-4.52 2.01-4.52 4.5 0 .35.04.7.12 1.04-3.76-.19-7.1-1.98-9.33-4.71A4.5 4.5 0 0 0 2.9 5.1a4.48 4.48 0 0 1-2.04-.56v.06c0 2.19 1.56 4.02 3.63 4.43A4.52 4.52 0 0 1 2 9.18v.06a4.51 4.51 0 0 0 3.61 4.42 4.52 4.52 0 0 1-2.02.08 4.52 4.52 0 0 0 4.21 3.12A9.03 9.03 0 0 1 0 19.54 12.77 12.77 0 0 0 6.92 21c8.29 0 12.84-6.87 12.84-12.84 0-.2 0-.39-.02-.59A9.1 9.1 0 0 0 23 3z"/>
+          </svg>
+        </a>
+        <a href="#" class="hover:text-white" title="Instagram">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.2.06 1.87.25 2.3.42.56.22.96.48 1.38.9s.68.82.9 1.38c.17.43.36 1.1.42 2.3.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.06 1.2-.25 1.87-.42 2.3a3.63 3.63 0 0 1-.9 1.38 3.63 3.63 0 0 1-1.38.9c-.43.17-1.1.36-2.3.42-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.2-.06-1.87-.25-2.3-.42a3.63 3.63 0 0 1-1.38-.9 3.63 3.63 0 0 1-.9-1.38c-.17-.43-.36-1.1-.42-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.06-1.2.25-1.87.42-2.3.22-.56.48-.96.9-1.38s.82-.68 1.38-.9c.43-.17 1.1-.36 2.3-.42C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7.05.07 5.75.14 4.74.37 3.92.7a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .7 4.22C.37 5.04.14 6.05.07 7.35 0 8.6 0 9 0 12s0 3.4.07 4.65c.07 1.3.3 2.31.63 3.13a5.9 5.9 0 0 0 1.39 2.13 5.9 5.9 0 0 0 2.13 1.39c.82.33 1.83.56 3.13.63C8.3 24 8.7 24 12 24s3.4 0 4.65-.07c1.3-.07 2.31-.3 3.13-.63a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.33-.82.56-1.83.63-3.13.07-1.25.07-1.65.07-4.85s0-3.6-.07-4.85c-.07-1.3-.3-2.31-.63-3.13a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.78.7c-.82-.33-1.83-.56-3.13-.63C15.7 0 15.3 0 12 0z"/>
+            <path d="M12 5.8A6.2 6.2 0 1 0 18.2 12 6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 4-4 4 4 0 0 1-4 4zM18.4 4.6a1.44 1.44 0 1 0 1.44 1.44A1.44 1.44 0 0 0 18.4 4.6z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 text-center border-t border-gray-700 pt-4 text-sm text-gray-500">
+    &copy; 2025 TravelMate. All rights reserved.
+  </div>
 </footer>
 {% endblock %}
+
 
 
 <script>AOS.init({ duration: 1000, once: true });</script>
